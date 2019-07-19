@@ -1,1 +1,1 @@
-web: gunicorn app:sm-url
+web: gunicorn sm-url:app
