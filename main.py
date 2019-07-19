@@ -53,7 +53,6 @@ app = Flask('sm-url')
 @app.route('/', methods=['POST', 'GET'])
 def insert_url():
     url = request.form.get('url')
-
     if urlparse(url).scheme == '':
         url = 'http://{}'.format(url)
     if request.method == 'POST':
