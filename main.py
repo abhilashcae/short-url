@@ -48,7 +48,7 @@ mongo = Mongo()
 helpers = Helpers()
 
 app = Flask('sm-url')
-host = 'https://sm-url.herokuapp.com'  #  'http://localhost:5000/' if you're running the server locally.
+host = 'https://sm-url.herokuapp.com/'  #  'http://localhost:5000/' if you're running the server locally.
 
 
 @app.route('/', methods=['POST', 'GET'])
