@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="text-center">
+<div class="jumbotron">
+<h2 class="display-5">Welcome to URL shortener!</h2>
+<form action="/" method="POST">
+    <div>
+        URL <input type="text" id="url" name="url" placeholder="Enter the url" size="40">
+        <br>
+        <input class="btn btn-primary" type="submit" value="Submit"><br>
+    </div>
+</form>
+{% if short_url %}
+<div>
+    <p class="lead">
+    The shortened URL is: <a href="{{short_url}}">{{short_url}}</a>
+    </p>
+</div>
+{% endif %}
+    </div>
+</body>
+<footer>
+    <p class="lead">
+    &copy; Abhilash, 2019
+    </p>
+</footer>
+</html>
