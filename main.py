@@ -48,18 +48,18 @@ mongo = Mongo()
 helpers = Helpers()
 
 app = Flask('sm-url')
-host = 'https://sm-url.herokuapp.com/'  #  'http://localhost:5000/' if you're running the server locally.
 
 
 @app.route('/', methods=['POST', 'GET'])
 def insert_url():
     url = request.form.get('url')
+
     if urlparse(url).scheme == '':
         url = 'http://{}'.format(url)
     if request.method == 'POST':
         mongo_id = mongo.insert_document(url)
         encoded_mongo_id = helpers.base64_encode(mongo_id.encode())
-        return render_template('index.html', short_url=host + encoded_mongo_id.decode())
+        return render_template('index.html', short_url=request.url_root + encoded_mongo_id.decode())
     return render_template('index.html')
 
 
