@@ -1,1 +1,1 @@
-web: URL Shortener:sm-url
+web: gunicorn app:sm-url
