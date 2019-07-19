@@ -45,8 +45,8 @@ class Helpers:
         return base64.b64decode(encoded_string)
 
 
-# mongo = Mongo()
-# helpers = Helpers()
+mongo = Mongo()
+helpers = Helpers()
 
 app = Flask('sm-url')
 
@@ -81,6 +81,4 @@ if __name__ == '__main__':
     else:
         mongod.terminate()
     """
-    # app.run(debug=True)
-    print(os.environ)
-
+    app.run(debug=True)
