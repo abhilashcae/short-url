@@ -10,7 +10,7 @@ from flask import Flask, request, render_template, redirect
 
 class Mongo:
     def __init__(self):
-        self.mongo_url = 'mongodb+srv://<username>:<password>@cluster0-3dtvi.mongodb.net/test?retryWrites=true&w=majority'  # 'mongodb://localhost:27017/short_url_db' if using locally
+        self.mongo_url = 'mongodb+srv://iamtheuser:SLZCqaYoJ5lbBEJu@cluster0-3dtvi.mongodb.net/test?retryWrites=true&w=majority'  # 'mongodb://localhost:27017/short_url_db' if using locally
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.short_url_db
         self.urls_collection = self.db.urls
