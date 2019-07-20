@@ -8,13 +8,14 @@
     <title>URL Shortener</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body class="text-center">
 <div class="jumbotron">
 <h2 class="display-5">Welcome to URL shortener!</h2>
 <form action="/" method="POST">
     <div>
-        URL <input type="text" id="url" name="url" placeholder="Enter the url" size="40">
+        URL <input type="url" id="url" name="url" placeholder="Enter the url" size="40" required>
         <br>
         <input class="btn btn-primary" type="submit" value="Submit"><br>
     </div>
