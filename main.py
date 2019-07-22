@@ -39,17 +39,7 @@ class Mongo:
         return base64.urlsafe_b64decode(url)
 
 
-class Helpers:
-    def base64_encode(self, string):
-        return base64.b64encode(string)
-
-    def base64_decode(self, encoded_string):
-        return base64.b64decode(encoded_string)
-
-
 mongo = Mongo()
-helpers = Helpers()
-
 app = Flask('sm-url')
 
 
