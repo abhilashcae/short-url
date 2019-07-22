@@ -22,7 +22,8 @@
     <div>
         <p class="lead">
             <label>The shortened URL is:</label><br>
-            <a href="{{short_url}}">{{short_url}}</a>
+            <a id="sh1" href="{{short_url}}">{{short_url}}</a>
+            <input class="btn btn-dark" type="button" value="Copy" onclick="copyToClipboard()"><br>
         </p>
     </div>
     {% endif %}
@@ -33,4 +34,16 @@
         &copy; Abhilash, 2019
     </p>
 </footer>
+<div id="temp"></div> <!-- for temporary use -->
+<script type="text/javascript">
+function copyToClipboard() {
+  var surl = document.getElementById("sh1");
+  var tempHtml = "<textarea id='copy-text' style='opacity: 0'>"+surl.innerHTML+"</textarea>";
+  document.getElementById("temp").innerHTML = tempHtml;
+  var text = document.getElementById("copy-text");
+  text.select();
+  document.execCommand("copy");
+}
+
+</script>
 </html>
