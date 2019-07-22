@@ -10,27 +10,27 @@
 </head>
 <body class="text-center">
 <div class="jumbotron">
-<h2 class="display-5">Welcome to URL simplifier!</h2>
-<form action="/" method="POST">
+    <h2 class="display-5">Welcome to URL simplifier!</h2>
+    <form action="/" method="POST">
+        <div>
+            <label>Original URL</label>
+            <input type="url" id="url" name="url" placeholder="Enter the url to simplify" size="40" required><br>
+            <input class="btn btn-primary" type="submit" value="Submit"><br>
+        </div>
+    </form>
+    {% if short_url %}
     <div>
-        URL <input type="url" id="url" name="url" placeholder="Enter the url to simplify" size="40" required>
-        <br>
-        <input class="btn btn-primary" type="submit" value="Submit"><br>
+        <p class="lead">
+            <label>The shortened URL is:</label><br>
+            <a href="{{short_url}}">{{short_url}}</a>
+        </p>
     </div>
-</form>
-{% if short_url %}
-<div>
-    <p class="lead">
-    The shortened URL is:<br>
-        <a href="{{short_url}}">{{short_url}}</a>
-    </p>
+    {% endif %}
 </div>
-{% endif %}
-    </div>
 </body>
 <footer>
     <p class="lead">
-    &copy; Abhilash, 2019
+        &copy; Abhilash, 2019
     </p>
 </footer>
 </html>
