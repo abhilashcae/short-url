@@ -10,10 +10,10 @@
 </head>
 <body class="text-center">
 <div class="jumbotron">
-<h2 class="display-5">Welcome to URL shortener!</h2>
+<h2 class="display-5">Welcome to URL simplifier!</h2>
 <form action="/" method="POST">
     <div>
-        URL <input type="url" id="url" name="url" placeholder="Enter the url" size="40" required>
+        URL <input type="url" id="url" name="url" placeholder="Enter the url to simplify" size="40" required>
         <br>
         <input class="btn btn-primary" type="submit" value="Submit"><br>
     </div>
@@ -21,7 +21,8 @@
 {% if short_url %}
 <div>
     <p class="lead">
-    The shortened URL is: <a href="{{short_url}}">{{short_url}}</a>
+    The shortened URL is:<br>
+        <a href="{{short_url}}">{{short_url}}</a>
     </p>
 </div>
 {% endif %}

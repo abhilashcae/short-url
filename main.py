@@ -3,10 +3,9 @@ import os
 from subprocess import Popen, STDOUT, DEVNULL
 from urllib.parse import urlparse
 
-from bson import ObjectId
-from pymongo import MongoClient
-
 from flask import Flask, request, render_template, redirect
+from nanoid import generate
+from pymongo import MongoClient
 
 
 class Mongo:
@@ -25,15 +24,18 @@ class Mongo:
         mongod = Popen(command, stderr=STDOUT, stdout=DEVNULL)
         return mongod
 
-    def insert_document(self, url):
-        obj_id = self.urls_collection.insert_one({'url': base64.urlsafe_b64encode(url.encode())}).inserted_id
-        return str(obj_id)
+    def insert_url(self, url):
+        body = {
+            'url': base64.urlsafe_b64encode(url.encode()),
+            'nano_id': generate(size=4)
+        }
+        obj_id = self.urls_collection.insert_one(body).inserted_id
+        nano_id = self.urls_collection.find_one({'_id': obj_id})
+        return nano_id['nano_id']
 
-    def find_document(self, object_id):
-        doc = self.urls_collection.find({'_id': ObjectId(object_id)})
-        url = ''
-        for u in doc:
-            url = u['url']
+    def find_url(self, nano_id):
+        doc = self.urls_collection.find_one({'nano_id': nano_id})
+        url = doc['url']
         return base64.urlsafe_b64decode(url)
 
 
@@ -57,16 +59,14 @@ def insert_url():
     if urlparse(url).scheme == '':
         url = 'http://{}'.format(url)
     if request.method == 'POST':
-        mongo_id = mongo.insert_document(url)
-        encoded_mongo_id = helpers.base64_encode(mongo_id.encode())
-        return render_template('index.html', short_url=request.url_root + encoded_mongo_id.decode())
+        nano_id = mongo.insert_url(url)
+        return render_template('index.html', short_url=request.url_root + nano_id)
     return render_template('index.html')
 
 
 @app.route('/<short_url>')
 def get_url(short_url):
-    decoded_mongo_id = helpers.base64_decode(short_url)
-    original_url = mongo.find_document(decoded_mongo_id.decode())
+    original_url = mongo.find_url(short_url)
     return redirect(original_url)
 
 
