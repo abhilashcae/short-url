@@ -24,7 +24,7 @@ class Mongo:
         mongod = Popen(command, stderr=STDOUT, stdout=DEVNULL)
         return mongod
 
-    def insert_url(self, url):
+    def insert_document(self, url):
         body = {
             'url': base64.urlsafe_b64encode(url.encode()),
             'nano_id': generate(size=5)
@@ -49,7 +49,7 @@ def insert_url():
     if urlparse(url).scheme == '':
         url = 'http://{}'.format(url)
     if request.method == 'POST':
-        nano_id = mongo.insert_url(url)
+        nano_id = mongo.insert_document(url)
         return render_template('index.html', short_url=request.url_root + nano_id)
     return render_template('index.html')
 
