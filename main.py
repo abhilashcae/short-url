@@ -27,7 +27,7 @@ class Mongo:
     def insert_url(self, url):
         body = {
             'url': base64.urlsafe_b64encode(url.encode()),
-            'nano_id': generate(size=4)
+            'nano_id': generate(size=5)
         }
         obj_id = self.urls_collection.insert_one(body).inserted_id
         nano_id = self.urls_collection.find_one({'_id': obj_id})
