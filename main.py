@@ -10,7 +10,7 @@ from pymongo import MongoClient
 
 class Mongo:
     def __init__(self):
-        self.mongo_url = 'mongodb+srv://difficultname:kr699icbTFnM8X6N@cluster0-3dtvi.mongodb.net/test?retryWrites=true&w=majority'#os.environ['MONGODB_URI']  # 'mongodb://localhost:27017/short_url_db' if using locally
+        self.mongo_url = os.environ['MONGODB_URI']  # 'mongodb://localhost:27017/short_url_db' if using locally
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.short_url_db
         self.urls_collection = self.db.urls
