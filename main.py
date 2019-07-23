@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 
 from flask import Flask, request, render_template, redirect
 from nanoid import generate
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 
 
 class Mongo:
@@ -24,13 +24,11 @@ class Mongo:
         mongod = Popen(command, stderr=STDOUT, stdout=DEVNULL)
         return mongod
 
-    def insert_document(self, url):
-        body = {
-            'url': base64.urlsafe_b64encode(url.encode()),
-            'nano_id': generate(size=5)
-        }
-        obj_id = self.urls_collection.insert_one(body).inserted_id
-        nano_id = self.urls_collection.find_one({'_id': obj_id})
+    def find_and_update_document(self, url):
+        encoded_url = base64.urlsafe_b64encode(url.encode())
+        nano_id = self.urls_collection.find_one_and_update(
+            {'url': encoded_url}, {'$setOnInsert': {'url': encoded_url, 'nano_id': generate(size=5)}},
+            projection={'nano_id': True, '_id': False}, upsert=True, return_document=ReturnDocument.AFTER)
         return nano_id['nano_id']
 
     def find_url(self, nano_id):
@@ -49,7 +47,7 @@ def insert_url():
     if urlparse(url).scheme == '':
         url = 'http://{}'.format(url)
     if request.method == 'POST':
-        nano_id = mongo.insert_document(url)
+        nano_id = mongo.find_and_update_document(url)
         return render_template('index.html', short_url=request.url_root + nano_id)
     return render_template('index.html')
 
